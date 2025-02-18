@@ -6,23 +6,51 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:42:06 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/15 21:54:33 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/18 15:11:52 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
+void	handler_answer(int sig)
+{
+	(void)sig;
+	ft_putchar_fd('+', 1);
+}
+
+void	sendchar(int pid, char c)
+{
+	int	i;
+
+	i = 7;
+	signal(SIGUSR1, handler_answer);
+	while (i >= 0)
+	{
+		if ((c >> i) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		i--;
+		pause();
+	}
+}
+
 int	main(int argc, char *argv[])
 {
-	char				*text;
-	struct sigaction	act;
+	char	*text;
+	int		pid;
 
-	if (argc != 3 || ft_strlen(argv[2]) < 1 || ft_strlen(argv[2]) > 5)
-		return (write(1, "Error\n", 6), 1);
+	if (argc != 3)
+		return (ft_printf("Error\npid and string needed!"), 1);
+	if (ft_strlen(argv[1]) < 1 || ft_strlen(argv[1]) > 5)
+		return (ft_printf("Error\npid too long"), 1);
+	if (ft_isdigit_str(argv[1]) == 0)
+		return (ft_printf("Error\ninvalid pid"), 1);
+	pid = (pid_t)atoi(argv[1]);
 	text = argv[2];
 	while (*text)
 	{
-		kill((pid_t)atoi(argv[1]), SIGUSR1);
+		sendchar(pid, *text);
 		text++;
 	}
 	return (0);
