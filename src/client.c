@@ -6,7 +6,7 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:42:06 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/21 16:44:02 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/21 17:36:40 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[])
 		return (ft_printf("Error\npid too long"), 1);
 	if (ft_isdigit_str(argv[1]) == 0)
 		return (ft_printf("Error\ninvalid pid"), 1);
-	pid = (pid_t)atoi(argv[1]);
+	pid = (pid_t)ft_atoi(argv[1]);
 	text = argv[2];
 	signal(SIGUSR1, handler_answer);
 	signal(SIGUSR2, handler_answer);
