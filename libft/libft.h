@@ -6,7 +6,7 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 20:35:04 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/07 16:59:30 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:23:47 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 /**/
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
+int		ft_isdigit_str(char *str);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);

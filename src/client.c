@@ -6,15 +6,25 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:42:06 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/21 17:36:40 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:35:52 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
+static void	ft_error(char *str)
+{
+	ft_printf("Error\n%s\n", str);
+	exit(1);
+}
+
 void	handler_answer(int sig)
 {
-	(void)sig;
+	if (sig == SIGUSR2)
+	{
+		write(1, "String Printed!\n", 16);
+		exit(0);
+	}
 }
 
 void	sendchar(int pid, char c)
@@ -24,10 +34,17 @@ void	sendchar(int pid, char c)
 	i = 7;
 	while (i >= 0)
 	{
+		usleep(15);
 		if ((c >> i) & 1)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				ft_error("kill failed");
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				ft_error("kill failed");
+		}
 		i--;
 		pause();
 	}
@@ -53,5 +70,7 @@ int	main(int argc, char *argv[])
 		sendchar(pid, *text);
 		text++;
 	}
+	sendchar(pid, '\0');
+	pause();
 	return (0);
 }

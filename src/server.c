@@ -6,11 +6,17 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 15:06:02 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/21 16:13:11 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:37:05 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
+
+static void	ft_error(char *str)
+{
+	ft_printf("Error\n%s\n", str);
+	exit(1);
+}
 
 void	handler(int sig, siginfo_t *info, void *vptr)
 {
@@ -22,10 +28,19 @@ void	handler(int sig, siginfo_t *info, void *vptr)
 	if (count == 8)
 	{
 		ft_putchar_fd(value, STDOUT_FILENO);
+		if (value == '\0')
+		{
+			if (kill(info->si_pid, SIGUSR2) == -1)
+				ft_error("kill failed");
+			value = 0;
+			count = 0;
+			return ;
+		}
 		value = 0;
 		count = 0;
 	}
-	kill(info->si_pid, SIGUSR1);
+	if (kill(info->si_pid, SIGUSR1) == -1)
+		ft_error("kill failed");
 	(void)vptr;
 }
 
