@@ -6,14 +6,14 @@
 #    By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/14 18:57:52 by mpoplow           #+#    #+#              #
-#    Updated: 2025/02/15 16:26:18 by mpoplow          ###   ########.fr        #
+#    Updated: 2025/02/21 16:21:59 by mpoplow          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CNAME	:= client
 SNAME	:= server
 
-CFLAGS	:= -Wall -Wextra -Werror -MMD
+CFLAGS	:= -Wall -Wextra -Werror -MMD -MP
 # -fsanitize=address -g
 
 CC := cc
@@ -45,7 +45,7 @@ $(SNAME): $(OFILES) $(DFILES)
 	@echo "\033[1;32mCREATE PROGRAM: server\033[0m"
 
 src/O_D_FILES/%.o: src/%.c | src/O_D_FILES
-	@$(CC) $(CFLAGS) -MMD -MP -g -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 src/O_D_FILES:
 	@mkdir -p $@

@@ -6,7 +6,7 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:42:06 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/18 15:11:52 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/21 16:44:02 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	handler_answer(int sig)
 {
 	(void)sig;
-	ft_putchar_fd('+', 1);
 }
 
 void	sendchar(int pid, char c)
@@ -23,7 +22,6 @@ void	sendchar(int pid, char c)
 	int	i;
 
 	i = 7;
-	signal(SIGUSR1, handler_answer);
 	while (i >= 0)
 	{
 		if ((c >> i) & 1)
@@ -48,6 +46,8 @@ int	main(int argc, char *argv[])
 		return (ft_printf("Error\ninvalid pid"), 1);
 	pid = (pid_t)atoi(argv[1]);
 	text = argv[2];
+	signal(SIGUSR1, handler_answer);
+	signal(SIGUSR2, handler_answer);
 	while (*text)
 	{
 		sendchar(pid, *text);
