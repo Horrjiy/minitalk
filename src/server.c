@@ -6,7 +6,7 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 15:06:02 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/21 19:37:05 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:58:27 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	handler(int sig, siginfo_t *info, void *vptr)
 	static char	value = 0;
 	static int	count = 0;
 
+	usleep(25);
 	value = (value << 1) | (sig == SIGUSR1);
 	count++;
 	if (count == 8)

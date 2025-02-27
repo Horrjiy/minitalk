@@ -6,7 +6,7 @@
 /*   By: mpoplow <mpoplow@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:42:06 by mpoplow           #+#    #+#             */
-/*   Updated: 2025/02/21 19:35:52 by mpoplow          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:58:14 by mpoplow          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sendchar(int pid, char c)
 	i = 7;
 	while (i >= 0)
 	{
-		usleep(15);
+		usleep(25);
 		if ((c >> i) & 1)
 		{
 			if (kill(pid, SIGUSR1) == -1)
